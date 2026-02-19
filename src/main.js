@@ -3,12 +3,18 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
+import gsap from "gsap";
 
 const canvas = document.querySelector("#experience-canvas");
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight
 }
+
+const raycasterObjects = [];
+
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
 
 // Loaders
 const textureLoader = new THREE.TextureLoader();
@@ -51,6 +57,11 @@ Object.entries(textureMap).forEach(([key, paths])=>{
   loadedTextures.night[key] = nightTexture;
 })
 
+window.addEventListener("mousemove", (e)=>{
+  pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+  pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
+})
+
 loader.load("/models/room.glb", (glb)=>{
   glb.scene.traverse(child=>{
     if(child.isMesh){
@@ -63,20 +74,17 @@ loader.load("/models/room.glb", (glb)=>{
             transparent: isTransparent,
             opacity: isTransparent ? 1 : 1,
             side: THREE.DoubleSide,
-            roughness: 0.8,
-            metalness: 0.2,
           });
 
           child.material = material;
 
-          if(child.material.map) {
-            child.material.map.minFilter = THREE.LinearFilter;
+          if (child.name.includes('Pointer')) {
+            raycasterObjects.push(child);
           }
         }
+        
       });
     }
-
-    
   });
   scene.add(glb.scene)
 });
@@ -127,8 +135,44 @@ window.addEventListener("resize", ()=> {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+const pageLinks = {
+  'My_Work': '/work.html',
+  'Contacts': '/contacts.html',
+  'Services': '/services.html',
+  'About': '/about.html'
+};
+
+window.addEventListener("click", () => {
+  raycaster.setFromCamera(pointer, camera);
+  const intersects = raycaster.intersectObjects(raycasterObjects);
+
+  if (intersects.length > 0) {
+    const clickedName = intersects[0].object.name; // Берем имя первого объекта в который попали
+    
+    // Ищем ключ в нашем списке ссылок
+    Object.entries(pageLinks).forEach(([key, url]) => {
+      if (clickedName.includes(key)) {
+        window.location.href = url;
+      }
+    });
+  }
+});
+
 const render = () => {
   controls.update();
+
+  // Raycaster
+  raycaster.setFromCamera(pointer, camera);
+
+  const intersects = raycaster.intersectObjects(raycasterObjects);
+  for (let i = 0; i <intersects.length; i++) {
+  }
+
+  if(intersects.length>0){
+    document.body.style.cursor = "pointer";
+  } else {
+    document.body.style.cursor = "default";
+  }
 
   renderer.render( scene, camera );
 
