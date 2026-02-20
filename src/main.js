@@ -136,10 +136,10 @@ window.addEventListener("resize", ()=> {
 })
 
 const pageLinks = {
-  'My_Work': '/work.html',
-  'Contacts': '/contacts.html',
-  'Services': '/services.html',
-  'About': '/about.html'
+  'My_Work': '../work.html',
+  'Contacts': '../contacts.html',
+  'Services': '../services.html',
+  'About': '../about.html'
 };
 
 window.addEventListener("click", () => {
