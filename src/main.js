@@ -3,7 +3,6 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
-import gsap from "gsap";
 
 const canvas = document.querySelector("#experience-canvas");
 const sizes = {
@@ -136,10 +135,10 @@ window.addEventListener("resize", ()=> {
 })
 
 const pageLinks = {
-  'My_Work': '../work.html',
-  'Contacts': '../contacts.html',
-  'Services': '../services.html',
-  'About': '../about.html'
+  'My_Work': '/work.html',
+  'Contacts': '/contacts.html',
+  'Services': '/services.html',
+  'About': '/about.html'
 };
 
 window.addEventListener("click", () => {
