@@ -4,6 +4,11 @@
 }
 
 @font-face {
+    font-family: "Dudka bold";
+    src: url("../font/DudkaBold.ttf") format(truetype);
+}
+
+@font-face {
     font-family: "Nauryz";
     src: url("../font/NauryzRedKeds.ttf") format(truetype);
 }
@@ -16,6 +21,7 @@
 
 :root {
     --maintext: #223148;
+    --secondtext: #5F6670;
     --header: #22314850;
     --colorhover: #F0E7D5;
     --border: #7A7F84;
@@ -39,8 +45,13 @@ body {
     color: var(--maintext);
     font-family: "Dudka";
     background-color: var(--bodycolor);
-   
+    cursor: url("../img/cursor.png"), default;
 }
+
+a, button {
+    cursor: url('../img/hand.png'), pointer;
+}
+
 
 header {
     width: 100%;
@@ -102,134 +113,178 @@ header {
     box-shadow: none;
 }
 
-.about-section {
-    padding: 60px 10%; /* Регулируйте под ваш дизайн */
-    background-color: #E8EAF0; /* Светлый фон всей страницы */
-}
-
-/* ВЕРХНИЙ БЛОК "О НАС" */
-.about-container {
-    display: grid;
-    grid-template-columns: 1fr 350px; /* Текст слева, фото справа */
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-.about-text-content {
-    background: #F1F3F8; /* Цвет светлого блока из Figma */
-    padding: 40px;
-    border-radius: 30px;
-    position: relative;
-    /* Имитация "внутреннего скругления" у фото */
-    border-top-right-radius: 80px; 
-}
-
-.section-title {
-    font-family: "Nauryz", sans-serif;
-    font-size: 48px;
-    margin-bottom: 30px;
-}
-
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    font-family: "Dudka", sans-serif;
-}
-
-.about-footer-text {
-    grid-column: 1 / -1; /* На всю ширину */
-    margin-top: 20px;
-    max-width: 80%;
-}
-
-.about-image-box {
-    border-radius: 30px;
-    overflow: hidden;
-    height: 300px;
-}
-
-.about-image-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* БЛОК "ЧЕМ МЫ ЗАНИМАЕМСЯ" (Центральный светлый блок) */
-.services-container {
-    background: #F1F3F8;
-    border-radius: 40px;
-    padding: 60px 40px;
-    text-align: center;
-}
-
-.services-title {
-    font-family: "Nauryz", sans-serif;
-    text-transform: uppercase;
-    font-size: 36px;
-    margin-bottom: 60px;
-}
-
-/* КАРТОЧКИ-ПАПКИ */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.folder {
+main {
+    padding: 50px 310px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
-.folder-tab {
-    background-color: var(--colorhover);
-    padding: 8px 25px;
-    border-radius: 15px 15px 0 0;
-    font-family: "Dudka", sans-serif;
-    z-index: 2;
+.bento-container {
+  position: relative;
+  width: 1300px;
+  height: 809px;
 }
 
-.folder-body {
-    background-color: var(--maintext);
-    width: 100%;
-    padding: 25px;
-    border-radius: 0 30px 30px 30px;
-    color: #F1F3F8;
-    text-align: left;
-    min-height: 200px;
-    /* Эффект "шума" или текстуры как на картинке (опционально) */
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.2); 
+.card {
+  position: absolute;
+  background: #E3E6EC;
+  transition: background 0.3s;
 }
 
-.folder-body ul {
-    list-style: none;
-    font-family: "Dudka", sans-serif;
+.card-top-left {
+  width: 800px;
+  height: 479px;
+  top: 0;
+  left: 0;
+  clip-path: url(#path-top-left);
 }
 
-.folder-body li {
-    margin-bottom: 10px;
-    padding-left: 20px;
+.card-bottom {
+  width: 1300px;
+  height: 489px;
+  bottom: 0;
+  left: 0;
+  clip-path: url(#path-bottom);
+}
+
+.card-top-right {
+  width: 480px;
+  height: 300px;
+  top: 0;
+  right: 0;
+  border-radius: 25px;
+}
+
+.content.top {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.main-title {
+    font-family: "Nauryz";
+    font-size: 32px;
+}
+
+.main-title {
     position: relative;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
-.folder-body li::before {
-    content: '•';
+.main-title:hover {
+    color: var(--maintext);
+    text-shadow: 
+        1px 0px 0px rgba(255,255,255,0.5), 
+        -1px 0px 0px rgba(255,255,255,0.3);
+    letter-spacing: 3px;
+}
+
+.about-block-text {
+    font-family: "Dudka Bold";
+    color: var(--secondtext);
+    display: flex;
+    gap: 30px;
+    font-size: 18px;
+}
+
+.about-block-text.text {
+    width: 320px;
+    margin-top: 30px;
+    text-align: right;
+}
+
+.hover-text {
+    color: var(--maintext);
+    background: linear-gradient(
+        120deg, 
+        var(--maintext) 30%, 
+        #fff 50%, 
+        var(--maintext) 70%
+    );
+    background-size: 300% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 0.8s ease;
+    display: inline;
+}
+
+.hover-text:hover {
+    background-position: 0 0;
+}
+
+.hover-text:hover::before {
+    left: 150%;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.main-title.bottom {
+    width: 45%;
+    margin-top: 80px;
+}
+
+.about-block {
+    display: flex;
+    margin-top: 80px;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.about-block-item {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
+.about-block-item-title, .about-block-item-opis {
     position: absolute;
-    left: 0;
-    color: var(--colorhover);
 }
 
-/* АДАПТИВНОСТЬ */
-@media (max-width: 1024px) {
-    .about-container {
-        grid-template-columns: 1fr; /* Фото под текст */
-    }
-    .about-grid {
-        grid-template-columns: 1fr;
-    }
-    .about-section {
-        padding: 40px 5%;
-    }
+.about-block-item-title {
+    top: 25px;
+    left: 50px;
+    font-size: 18px;
+    font-family: "Dudka Bold";
+}
+
+.about-block-item-opis {
+    top: 35%;
+    left: 50px;
+    color: #D9D9D9;
+    font-family: "Dudka Bold";
+    line-height: 200%;
+}
+.card {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.card:hover {
+    background: #CFD4DE;
+    transform: translateY(-4px);
+}
+.about-block-item {
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    perspective: 1000px;
+}
+
+.about-block-item:hover {
+    transform: rotateX(5deg) rotateY(-5deg) scale(1.02);
+}
+.about-block-item {
+    transition: transform 0.5s ease-out;
+}
+
+.about-block-item:hover {
+    transform: rotate(3deg) scale(1.05);
 }
