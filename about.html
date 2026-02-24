@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>О нас</title>
     <link rel="stylesheet" href="src/frontstyle.css">
+    <script type="module" src="src/3d.js"></script>
 </head>
 <body>
     <header>
@@ -119,9 +120,16 @@
         </div>
 
         <div class="card card-top-right">
-            <div class="content">Правый блок</div>
+            <div class="content">
+                <model-viewer src="public/models/girl.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" shadow-intensity="1" autoplay camera-orbit="38.56deg 77.44deg 4.58m" field-of-view="30deg" auto-rotate>
+                <div class="progress-bar hide" slot="progress-bar">
+                    <div class="update-bar"></div>
+                </div>
+                <button slot="ar-button" id="ar-button">
+                </button>
+            </model-viewer>   
+            </div>
         </div>
-    </div>
     <svg width="0" height="0">
         <defs>
             <clipPath id="path-top-left" clipPathUnits="objectBoundingBox">
@@ -131,7 +139,8 @@
             <path d="M0.981,0 C0.991,0,1,0.023,1,0.051 V0.949 C1,0.977,0.991,1,0.981,1 H0.019 C0.008,1,0,0.977,0,0.949 V0.417 C0,0.389,0.008,0.366,0.019,0.366 H0.314 C0.325,0.366,0.334,0.343,0.334,0.315 V0.051 C0.334,0.023,0.342,0,0.353,0 H0.981 Z" />
             </clipPath>
         </defs>
-    </svg>
+    </svg></div>
+    
 
     <div class="advantages-block">
         <h1 class="main-title">Наши преимущества</h1>
@@ -169,7 +178,64 @@
             </div>
         </div>
     </div>
+
+    <div class="inviteapplication">
+        <div class="inviteapplication-block left">
+            <p>010101010101010101010101010101010101010101010101010101010101010101
+            0101010101010101010101010101010101010101010101010101
+            0101010101010101010101010101010101010101010
+            010101010101010101010101010101010101010101010101
+            0101010101010101010101010101010101010101010
+            0101010101010101010101010101010101010101010101010101
+            010101010101010101010101010101010101010101010101010101010101010101
+            0101010101010101010101010101010101010101010
+            0101010101010101010101010101010101010101010101010101
+            010101010101010101010101010101010101010101010101</p>
+        </div>
+        <div class="inviteapplication-block center">
+            <h1 class="main-title">хотИтЕ заказать проЕкт?</h1>
+            <a class="header-nav-request two" href="">Оставить заявку</a>
+        </div>
+        <div class="inviteapplication-block right">
+            <p>010101010101010101010101010101010101010101010101010101010101010101
+            0101010101010101010101010101010101010101010101010101
+            0101010101010101010101010101010101010101010
+            010101010101010101010101010101010101010101010101
+            0101010101010101010101010101010101010101010
+            0101010101010101010101010101010101010101010101010101
+            010101010101010101010101010101010101010101010101010101010101010101
+            0101010101010101010101010101010101010101010
+            0101010101010101010101010101010101010101010101010101
+            010101010101010101010101010101010101010101010101</p>
+        </div>
+    </div>
     </main>
+
+    <footer>
+        <div class="footer-block top">
+            <div class="footer-block-item left">
+                <p class="footer-title">О компании</p>
+                <p class="footer-opis">Кнопка Отладки<br>IT-компания по разработке веб-cайтов и 3D-графики</p>
+            </div>
+            <div class="footer-block-item">
+                <p class="footer-title">разДеЛы</p>
+                <a href="index.html">Главная</a>
+                <a href="about.html">О нас</a>
+                <a href="services.html">Услуги</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="work.html">Портфолио</a>
+            </div>
+            <div class="footer-block-item right">
+                <p class="footer-title">Связаться с нами</p>
+                <a href="mailto:knopkaotladki@mail.ru">knopkaotladki@mail.ru</a>
+                <a href="tel:89608933756">+7 960 893 37 56</a>
+                <p>г.Краснодар</p>
+            </div>
+        </div>
+        <div class="footer-block">
+            © 2026 «Кнопка Отладки» — дипломный проект
+        </div>
+    </footer>
 </body>
 <script>
 const wrapper = document.querySelector('.advantages-wrapper');
@@ -182,14 +248,11 @@ wrapper.addEventListener('mousemove', (e) => {
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-    // Наклон
     circle.style.transform = `rotateX(${(y * -25).toFixed(2)}deg) rotateY(${(x * 25).toFixed(2)}deg)`;
 
-    // Блик
     circle.style.setProperty('--mouse-x', `${(e.clientX - rect.left) / rect.width * 100}%`);
     circle.style.setProperty('--mouse-y', `${(e.clientY - rect.top) / rect.height * 100}%`);
 
-    // Четкая тень для текста
     const tx = (x * -10).toFixed(1);
     const ty = (y * -10).toFixed(1);
     const textShadowStyle = `${tx}px ${ty}px 5px rgba(0,0,0,0.2)`;
@@ -198,7 +261,6 @@ wrapper.addEventListener('mousemove', (e) => {
         t.style.textShadow = textShadowStyle;
     });
 
-    // Тень для звезды (ей можно оставить drop-shadow, она не текст)
     star.style.filter = `drop-shadow(${(x * -20).toFixed(1)}px ${(y * -20).toFixed(1)}px 10px rgba(0,0,0,0.3))`;
 });
 
@@ -207,5 +269,45 @@ wrapper.addEventListener('mouseleave', () => {
     texts.forEach(t => t.style.textShadow = 'none');
     star.style.filter = 'none';
 });
+
+const binaryTexts = document.querySelectorAll('.inviteapplication-block.left p, .inviteapplication-block.right p');
+
+function glitchBinary() {
+    binaryTexts.forEach(p => {
+        let chars = p.innerText.split('');
+        for (let i = 0; i < 30; i++) {
+            let randomIndex = Math.floor(Math.random() * chars.length);
+            
+            if (chars[randomIndex] === '0') {
+                chars[randomIndex] = '1';
+            } else if (chars[randomIndex] === '1') {
+                chars[randomIndex] = '0';
+            }
+        }
+        
+        p.innerText = chars.join('');
+    });
+}
+
+setInterval(glitchBinary, 100);
+
+const btn = document.querySelector('.header-nav-request.two');
+
+btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    // Вычисляем смещение от центра кнопки до курсора
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    // Двигаем кнопку на 10% от расстояния до курсора
+    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.3}px)`;
+});
+
+btn.addEventListener('mouseleave', () => {
+    // Возвращаем на место
+    btn.style.transform = `translate(0px, 0px)`;
+});
+
+
 </script>
 </html>

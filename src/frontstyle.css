@@ -26,6 +26,7 @@
     --colorhover: #F0E7D5;
     --border: #7A7F84;
     --bodycolor: #EDEDED;
+    --block: #E3E6EC;
 }
 
 a {
@@ -114,11 +115,11 @@ header {
 }
 
 main {
-    padding: 50px 310px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 60px;
 }
 
 .bento-container {
@@ -129,7 +130,7 @@ main {
 
 .card {
   position: absolute;
-  background: #E3E6EC;
+  background: var(--block);
   transition: background 0.3s;
 }
 
@@ -155,6 +156,11 @@ main {
   top: 0;
   right: 0;
   border-radius: 25px;
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
 }
 
 .content.top {
@@ -224,6 +230,8 @@ main {
 }
 
 .content {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -409,4 +417,193 @@ main {
     top: 43%;
     left: 43%;
     transform: translateZ(50px);
+}
+
+.inviteapplication {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--block);
+    align-items: center;
+}
+
+.inviteapplication-block {
+    width: 100%;
+    max-width: 600px;
+}
+
+.inviteapplication-block.left {
+    text-align: left;
+}
+
+.inviteapplication-block.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 620px;
+    gap: 30px;
+}
+
+.inviteapplication-block.right {
+    text-align: right;
+}
+
+.inviteapplication-block.left, .inviteapplication-block.right {
+    font-family: monospace;
+    color: var(--border);
+    font-size: 14px;
+    opacity: 0.60;
+    letter-spacing: 2px;
+    overflow: hidden;
+    user-select: none;
+    pointer-events: none;
+}
+
+.inviteapplication-block.left {
+    mask-image: linear-gradient(to right, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
+}
+
+.inviteapplication-block.right {
+    mask-image: linear-gradient(to left, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
+}
+
+.header-nav-request.two {
+    display: inline-block;
+    padding: 5px 0px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 0 0 rgba(34, 49, 72, 0.4); 
+    animation: button-pulse 2s infinite;
+}
+
+@keyframes button-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(34, 49, 72, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(34, 49, 72, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 49, 72, 0); }
+}
+
+.header-nav-request.two:hover {
+    transform: translateY(-3px);
+    background-color: var(--maintext);
+    color: var(--colorhover);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.header-nav-request.two:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+}
+
+footer {
+    margin-top: 60px;
+    width: 100%;
+    height: 400px;
+    background-color: var(--maintext);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 70px 0px;
+}
+
+.footer-block.top {
+    width: 100%;
+    max-width: 1300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.footer-block-item.left {
+    align-items: start;
+}
+
+.footer-block-item {
+    width: 333px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--block);
+    font-size: 18px;
+}
+
+.footer-block-item.right {
+    align-items: end;
+}
+
+.footer-title {
+    font-family: "Nauryz";
+    font-size: 20px;
+    color: var(--colorhover);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    transition: letter-spacing 0.5s ease, color 0.5s ease;
+}
+
+.footer-block-item a {
+    font-size: 18px;
+    color: var(--block);
+}
+
+.footer-block {
+    color: var(--block);
+}
+
+.footer-block-item a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-block-item:not(.right) a:hover {
+    color: var(--colorhover);
+}
+
+.footer-block-item.right a:hover {
+    color: var(--colorhover);
+    text-shadow: 0 0 8px var(--colorhover);
+}
+
+.footer-block-item a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--colorhover);
+    transform-origin: bottom right;
+    transition: transform 0.4s ease-out;
+}
+
+.footer-block-item a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.footer-title:hover {
+    letter-spacing: 4px;
+}
+
+.footer-block-item.left {
+    cursor: default;
+}
+
+.footer-opis {
+    transition: all 0.4s ease;
+    border-left: 0px solid var(--colorhover);
+    padding-left: 0;
+}
+
+.footer-block-item.left:hover .footer-opis {
+    opacity: 1;
+    color: var(--block);
+    padding-left: 15px;
+    border-left: 3px solid var(--colorhover);
 }
