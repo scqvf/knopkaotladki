@@ -17,7 +17,7 @@
             <a href="contacts.html">Контакты</a>
             <a href="work.html">ПортфоЛио</a>
         </div>
-        <a class="header-nav-request" href="">Оставить заявку</a>
+        <a class="header-nav-request" href="services.html#application">Оставить заявку</a>
     </header>
 
     <main>
@@ -179,6 +179,56 @@
         </div>
     </div>
 
+    <div class="tech-section">
+    <h1 class="main-title">Инструменты и технологии</h1>
+        <div class="tech-circles">
+            <div class="tech-circle" data-position="left">
+            <div class="circle-inner">
+                <h3>Frontend</h3>
+                <div class="tech-content">
+                <p>HTML5</p>
+                <p>CSS / SCSS</p>
+                <p>JavaScript</p>
+                <p>React</p>
+                <p>Three.js</p>
+                </div>
+            </div>
+            </div>
+
+            <div class="tech-circle" data-position="right">
+            <div class="circle-inner">
+                <h3>Backend</h3>
+                <div class="tech-content">
+                <p>Node.js</p>
+                <p>PHP</p>
+                <p>MongoDB</p>
+                </div>
+            </div>
+            </div>
+
+            <div class="tech-circle" data-position="bottom-left">
+            <div class="circle-inner">
+                <h3>Дизайн</h3>
+                <div class="tech-content">
+                <p>Figma</p>
+                <p>UI/UX</p>
+                <p>Прототипирование</p>
+                </div>
+            </div>
+            </div>
+
+            <div class="tech-circle" data-position="bottom-right">
+            <div class="circle-inner">
+                <h3>3D</h3>
+                <div class="tech-content">
+                <p>Blender</p>
+                <p>WebGL</p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
     <div class="inviteapplication">
         <div class="inviteapplication-block left">
             <p>010101010101010101010101010101010101010101010101010101010101010101
@@ -194,7 +244,7 @@
         </div>
         <div class="inviteapplication-block center">
             <h1 class="main-title">хотИтЕ заказать проЕкт?</h1>
-            <a class="header-nav-request two" href="">Оставить заявку</a>
+            <a class="header-nav-request two" href="services.html#application">Оставить заявку</a>
         </div>
         <div class="inviteapplication-block right">
             <p>010101010101010101010101010101010101010101010101010101010101010101
@@ -238,6 +288,31 @@
     </footer>
 </body>
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+const techSection = document.querySelector(".tech-section");
+
+if (!techSection) return;
+
+const circles = techSection.querySelectorAll(".tech-circle");
+
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+    techSection.classList.add("active");
+    } else {
+    techSection.classList.remove("active");
+    }
+
+});
+}, {
+threshold: 0.4
+});
+
+observer.observe(techSection);
+});
+
 const wrapper = document.querySelector('.advantages-wrapper');
 const circle = document.querySelector('.advantages-block-item');
 const texts = document.querySelectorAll('.advantages-block-item-text');
