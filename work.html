@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты</title>
+    <link rel="stylesheet" href="src/frontstyle.css">
+</head>
+<body>
+    <header>
+        <img src="img/logo.svg" alt="Логотип">
+        <div class="header-nav-button">
+            <a href="index.html">ГЛавная</a>
+            <a  href="about.html">О нас</a>
+            <a  href="services.html">Услуги</a>
+            <a class="active" href="contacts.html">Контакты</a>
+            <a href="work.html">ПортфоЛио</a>
+        </div>
+        <a class="header-nav-request" href="services.html#application">Оставить заявку</a>
+    </header>
+    <main>
+        <div class="portfolio-tabs">
+            <button class="tab-btn active" data-filter="all">Все работы</button>
+            <button class="tab-btn" data-filter="sites">Сайты</button>
+            <button class="tab-btn" data-filter="design">Дизайн</button>
+            <button class="tab-btn" data-filter="3d">3Д-модели</button>
+        </div>
+        <section class="portfolio-section">
+            <div class="portfolio-container">
+                <!-- Карточка 1 -->
+                <div class="portfolio-card card-1" data-category="sites">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h2>Проект «Цифровой Слой»</h2>
+                            <p>Веб-разработка / 3D графика</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="project1.jpg" alt="Work 1" class="card-bg">
+                        </div>
+                    </div>
+                </div>
+                <!-- Карточка 2 -->
+                <div class="portfolio-card card-2" data-category="design">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h2>Маркетплейс «Отладка»</h2>
+                            <p>UI/UX Дизайн</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="project2.jpg" alt="Work 2" class="card-bg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+     <footer>
+        <div class="footer-block top">
+            <div class="footer-block-item left">
+                <p class="footer-title">О компании</p>
+                <p class="footer-opis">Кнопка Отладки<br>IT-компания по разработке веб-cайтов и 3D-графики</p>
+            </div>
+            <div class="footer-block-item">
+                <p class="footer-title">разДеЛы</p>
+                <a href="index.html">Главная</a>
+                <a href="about.html">О нас</a>
+                <a href="services.html">Услуги</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="work.html">Портфолио</a>
+            </div>
+            <div class="footer-block-item right">
+                <p class="footer-title">Связаться с нами</p>
+                <a href="mailto:knopkaotladki@mail.ru">knopkaotladki@mail.ru</a>
+                <a href="tel:89608933756">+7 960 893 37 56</a>
+                <p>г.Краснодар</p>
+            </div>
+        </div>
+        <div class="footer-block">
+            © 2026 «Кнопка Отладки» — дипломный проект
+        </div>
+    </footer>
+</body>
+<script>
+    
+ const tabBtns = document.querySelectorAll('.tab-btn');
+    const allCards = document.querySelectorAll('.portfolio-card');
+
+    // Функция фильтрации
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 1. Подсветка активной кнопки
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filterValue = btn.getAttribute('data-filter');
+
+            // 2. Показ/Скрытие карточек
+            allCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                
+                if (filterValue === 'all' || cardCategory === filterValue) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // 3. Исправление для первой карточки после фильтрации
+            // Чтобы новая "первая" карточка в списке стала четкой
+            const firstVisible = document.querySelector('.portfolio-card:not(.hidden)');
+            if (firstVisible) {
+                firstVisible.style.opacity = "1";
+                firstVisible.style.filter = "blur(0px)";
+                firstVisible.style.transform = "rotateX(0deg) scale(1)";
+            }
+
+            // Маленький хак для браузера, чтобы он пересчитал Scroll-анимации
+            window.scrollBy(0, 1);
+            window.scrollBy(0, -1);
+        });
+    });
+
+    // Твой основной код параллакса мыши (оставь как есть)
+    allCards.forEach(card => {
+        const content = card.querySelector('.card-content');
+        const title = card.querySelector('h2');
+        const bgImg = card.querySelector('.card-bg');
+
+        card.addEventListener('mousemove', (e) => {
+            // Тут твой текущий рабочий код mousemove...
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `rotateX(${(y * -30).toFixed(2)}deg) rotateY(${(x * 30).toFixed(2)}deg) scale(1.05)`;
+            // и так далее...
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+        });
+    });
+</script>
+</script>
+</html>

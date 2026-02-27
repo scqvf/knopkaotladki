@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -370,16 +370,13 @@ const btn = document.querySelector('.header-nav-request.two');
 
 btn.addEventListener('mousemove', (e) => {
     const rect = btn.getBoundingClientRect();
-    // Вычисляем смещение от центра кнопки до курсора
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
 
-    // Двигаем кнопку на 10% от расстояния до курсора
     btn.style.transform = `translate(${x * 0.2}px, ${y * 0.3}px)`;
 });
 
 btn.addEventListener('mouseleave', () => {
-    // Возвращаем на место
     btn.style.transform = `translate(0px, 0px)`;
 });
 
