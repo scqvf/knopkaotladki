@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контакты</title>
+    <title>Портфолио</title>
     <link rel="stylesheet" href="src/frontstyle.css">
 </head>
 <body>
@@ -13,12 +13,13 @@
             <a href="index.html">ГЛавная</a>
             <a  href="about.html">О нас</a>
             <a  href="services.html">Услуги</a>
-            <a class="active" href="contacts.html">Контакты</a>
-            <a href="work.html">ПортфоЛио</a>
+            <a href="contacts.html">Контакты</a>
+            <a class="active" href="work.html">ПортфоЛио</a>
         </div>
         <a class="header-nav-request" href="services.html#application">Оставить заявку</a>
     </header>
-    <main>
+    <main class="portfolio">
+        <h1 class="main-title">ПортфоЛио</h1>
         <div class="portfolio-tabs">
             <button class="tab-btn active" data-filter="all">Все работы</button>
             <button class="tab-btn" data-filter="sites">Сайты</button>
@@ -27,27 +28,102 @@
         </div>
         <section class="portfolio-section">
             <div class="portfolio-container">
-                <!-- Карточка 1 -->
-                <div class="portfolio-card card-1" data-category="sites">
+                <div class="portfolio-card card-1 blik" data-category="sites">
                     <div class="card-content">
                         <div class="card-info">
-                            <h2>Проект «Цифровой Слой»</h2>
-                            <p>Веб-разработка / 3D графика</p>
+                            <h2>Сайт «Ласточкино гнездо»</h2>
+                            <p>Веб-разработка</p>
+                        </div>
+                        <a href="https://baza-lastochkino-gnezdo.ru/" class="card-image" target="_blank">
+                            <img src="img/site1.jpg" alt="Work 1" class="card-bg">
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-card card-2 blik" data-category="design">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h2>Макет сайта</h2>
+                            <p>Дизайн</p>
+                        </div>
+                        <a href="https://www.figma.com/design/2vTsvwivn0tE9gK2lkkmhd/kpop-delivery?node-id=1-2&t=06oRyn8GFzvYuMHW-1" class="card-image" target="_blank">
+                            <img src="img/design1.webp" alt="Work 2" class="card-bg">
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-card card-1 blik" data-category="3d">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h2>3D модель</h2>
+                            <p>3D графика</p>
                         </div>
                         <div class="card-image">
-                            <img src="project1.jpg" alt="Work 1" class="card-bg">
+                            <img src="img/3d1.webp" alt="Work 1" class="card-bg">
                         </div>
                     </div>
                 </div>
-                <!-- Карточка 2 -->
-                <div class="portfolio-card card-2" data-category="design">
+                <div class="portfolio-card card-1 blik" data-category="sites">
                     <div class="card-content">
                         <div class="card-info">
-                            <h2>Маркетплейс «Отладка»</h2>
-                            <p>UI/UX Дизайн</p>
+                            <h2>Сайт "Лапки добра"</h2>
+                            <p>Веб-разработка</p>
+                        </div>
+                        <a href="https://scqvf.github.io/cats/" class="card-image" target="_blank">
+                            <img src="img/site2.webp" alt="Work 1" class="card-bg">
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-card card-2 blik" data-category="design">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h2>Макет сайта</h2>
+                            <p>Дизайн</p>
+                        </div>
+                        <a href="https://www.figma.com/design/11tMj1FpUVXdfFakCMGLYM/music-site?node-id=1-2&t=06oRyn8GFzvYuMHW-1" class="card-image" target="_blank">
+                            <img src="img/design2.webp" alt="Work 2" class="card-bg">
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-card card-1 blik" data-category="3d">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h2>3D модель</h2>
+                            <p>3D графика</p>
                         </div>
                         <div class="card-image">
-                            <img src="project2.jpg" alt="Work 2" class="card-bg">
+                            <img src="img/3d8.webp" alt="Work 1" class="card-bg">
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card card-1 blik" data-category="sites">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h2>Сайт "Бульдозер"</h2>
+                            <p>Веб-разработка</p>
+                        </div>
+                        <a href="https://bulldozer01.ru/" class="card-image" target="_blank">
+                            <img src="img/site3.webp" alt="Work 1" class="card-bg">
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-card card-2 blik" data-category="design">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h2>Макет сайта</h2>
+                            <p>Дизайн</p>
+                        </div>
+                        <a href="https://www.figma.com/design/11tMj1FpUVXdfFakCMGLYM/music-site?node-id=1-2&t=06oRyn8GFzvYuMHW-1" class="card-image" target="_blank">
+                            <img src="img/design3.webp" alt="Work 2" class="card-bg">
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-card card-1 blik" data-category="3d">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h2>3D модель</h2>
+                            <p>3D графика</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="img/3d3.webp" alt="Work 1" class="card-bg">
                         </div>
                     </div>
                 </div>
@@ -82,20 +158,29 @@
 </body>
 <script>
     
- const tabBtns = document.querySelectorAll('.tab-btn');
-    const allCards = document.querySelectorAll('.portfolio-card');
+const tabBtns = document.querySelectorAll('.tab-btn');
 
-    // Функция фильтрации
+    function setActiveFirstCard() {
+    wrappers.forEach(card => card.classList.remove('is-active'));
+
+    const firstVisible = [...wrappers].find(card => !card.classList.contains('hidden'));
+
+    if (firstVisible) {
+        firstVisible.classList.add('is-active');
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    setActiveFirstCard();
+});
+
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // 1. Подсветка активной кнопки
             tabBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             const filterValue = btn.getAttribute('data-filter');
 
-            // 2. Показ/Скрытие карточек
-            allCards.forEach(card => {
+            wrappers.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
                 
                 if (filterValue === 'all' || cardCategory === filterValue) {
@@ -105,38 +190,46 @@
                 }
             });
 
-            // 3. Исправление для первой карточки после фильтрации
-            // Чтобы новая "первая" карточка в списке стала четкой
             const firstVisible = document.querySelector('.portfolio-card:not(.hidden)');
             if (firstVisible) {
                 firstVisible.style.opacity = "1";
                 firstVisible.style.filter = "blur(0px)";
                 firstVisible.style.transform = "rotateX(0deg) scale(1)";
             }
-
-            // Маленький хак для браузера, чтобы он пересчитал Scroll-анимации
+             setActiveFirstCard();
             window.scrollBy(0, 1);
             window.scrollBy(0, -1);
         });
     });
 
-    // Твой основной код параллакса мыши (оставь как есть)
-    allCards.forEach(card => {
-        const content = card.querySelector('.card-content');
-        const title = card.querySelector('h2');
-        const bgImg = card.querySelector('.card-bg');
+    const wrappers = document.querySelectorAll('.portfolio-card');
 
-        card.addEventListener('mousemove', (e) => {
-            // Тут твой текущий рабочий код mousemove...
-            const rect = card.getBoundingClientRect();
+    wrappers.forEach(wrapper => {
+        const card = wrapper.querySelector('.card-content')
+        const content = wrapper.querySelector('.card-info');
+        const title = wrapper.querySelector('h2');
+
+        wrapper.addEventListener('mousemove', (e) => {
+            const rect = wrapper.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width - 0.5;
             const y = (e.clientY - rect.top) / rect.height - 0.5;
+
             card.style.transform = `rotateX(${(y * -30).toFixed(2)}deg) rotateY(${(x * 30).toFixed(2)}deg) scale(1.05)`;
-            // и так далее...
+            const tx = (x * 40).toFixed(1);
+            const ty = (y * 40).toFixed(1);
+            content.style.transform = `translateX(${tx}px) translateY(${ty}px) translateZ(150px)`;
+            const sx = (x * -20).toFixed(1);
+            const sy = (y * -20).toFixed(1);
+            title.style.textShadow = `${sx}px ${sy}px 20px rgba(255,255,255,0.3), 0 0 40px rgba(0,0,0,0.5)`;
+
+            card.style.setProperty('--mouse-x', `${((e.clientX - rect.left) / rect.width * 100).toFixed(1)}%`);
+            card.style.setProperty('--mouse-y', `${((e.clientY - rect.top) / rect.height * 100).toFixed(1)}%`);
         });
 
-        card.addEventListener('mouseleave', () => {
+        wrapper.addEventListener('mouseleave', () => {
             card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+            content.style.transform = `translateX(0) translateY(0) translateZ(150px)`;
+            title.style.textShadow = 'none';
         });
     });
 </script>

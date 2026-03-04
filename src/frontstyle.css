@@ -1210,7 +1210,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--block), var(--maintext));
+    background: linear-gradient(135deg, #E3E6EC70, #27314880);
     box-shadow: 10px 20px 40px rgba(0, 0, 0, 0.507);
     top: -5%;
     opacity: 0;
@@ -1493,39 +1493,43 @@ footer {
     perspective: 2000px;
 }
 
-.card-wrapper {
+.portfolio-container {
     position: relative;
-    margin-bottom: 25vh;
     perspective: 2000px;
-}
-
-.card-wrapper:first-child .portfolio-card {
-    opacity: initial;
-    transform: rotateX(0deg) scale(1);
-    filter: blur(0px) !important;
 }
 
 .portfolio-card {
     position: relative;
-    width: 85vw;
-    max-width: 1000px;
+    width: 100%;
+    max-width: 900px;
     height: 550px;
     border-radius: 40px;
-    background: #111;
+    background: var(--border);
     overflow: hidden;
     border: 1px solid rgba(255,255,255,0.1);
     view-timeline-name: --card-scroll;
     view-timeline-axis: block;
-    animation: super-3d both linear;
+    animation: super-3d both cubic-bezier(0.4, 0, 1, 1);
     animation-timeline: --card-scroll;
     animation-range: entry 0% exit 100%;
     transform-style: preserve-3d;
     transition: transform 0.15s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
-.portfolio-card::before {
-    content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none;
-    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.2) 0%, transparent 50%);
+.portfolio-card.is-active {
+    animation-range: entry -60% exit 100%;
+}
+
+.card-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(255,255,255,0.2) 0%, 
+        transparent 50%
+    );
+    z-index: 0;
 }
 
 .card-content {
@@ -1537,21 +1541,18 @@ footer {
     justify-content: space-between;
     transform-style: preserve-3d;
     transition: transform 0.2s ease-out;
-    pointer-events: none;
 }
 
 .card-info {
     transform: translateZ(150px);
     flex: 1;
 }
-.card-info h2 { 
-    font-size: 3.5rem; 
-    text-transform: uppercase;
-    margin-bottom: 10px; 
+
+.card-info h2 {
+    font-size: 65px;
 }
 .card-info p { 
-    font-size: 1.2rem; 
-    opacity: 0.6; 
+    font-size: 30px;
 }
 
 .card-image {
@@ -1560,10 +1561,12 @@ footer {
     overflow: hidden; 
     border-radius: 20px;
     transform: translateZ(50px);
+    cursor: pointer;
 }
+
 .card-image img {
-    width: 110%; 
-    height: 110%; 
+    width: 100%; 
+    height: 100%; 
     object-fit: cover;
     transition: transform 0.2s ease-out;
 }
@@ -1574,36 +1577,43 @@ footer {
     100% { opacity: 0; transform: rotateX(60deg) rotateY(10deg) scale(0.6) translateZ(-500px); filter: blur(15px); }
 }
 
+main.portfolio {
+    gap: 40px;
+}
+
 .portfolio-tabs {
     display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 15px;
-    margin: 120px 0 30px;
-    position: relative;
+    gap: 20px;
     z-index: 100;
 }
 
 .tab-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 50px;
+    background: var(--colorhover);
+    color: var(--maintext);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 15px;
     cursor: pointer;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 18px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: "Dudka Bold";
 }
 
-.tab-btn.active, .tab-btn:hover {
-    background: #fff;
-    color: #000;
-    border-color: #fff;
-    transform: translateY(-2px);
+.tab-btn.active {
+    background: var(--maintext) !important;
+    color: var(--colorhover);
+    transform: translateY(-2px) !important;
+    padding: 10px 18px !important;
 }
 
-/* Скрытие карточек при фильтрации */
+.tab-btn:hover {
+    transform: translateY(-5px);
+    padding: 10px 25px;
+    background-color: #c5c2bb;
+}
+
 .portfolio-card.hidden {
     display: none;
 }
