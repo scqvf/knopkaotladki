@@ -18,7 +18,7 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$name, $email, $service, $message]);
         // echo "<h1>Заявка отправлена!</h1>";
-        http_response_code(200); // Сообщаем браузеру, что всё ОК
+        http_response_code(200);
         exit;
     }
 } catch (PDOException $e) {

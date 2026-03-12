@@ -143,6 +143,13 @@
                 <button class="form-button" type="submit">Отправить</button>
             </form>
         </div>
+        <div class="overlay-formaccept">
+            <div id="modal-success" class="formaccept">
+                <h2>Ваш вопрос был отправлен!</h2>
+                <p>Мы свяжемся с вами в течение 1 часа в рабочее время</p>
+                <button>Понятно!</button>
+            </div>
+        </div>
     </main>
     <footer>
         <div class="footer-block top">
@@ -171,9 +178,64 @@
     </footer>
 </body>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const headers = document.querySelectorAll('.question-block-up');
+const overlay = document.querySelector('.overlay-formaccept');
+const formAcceptWindow = document.querySelector('.formaccept');
+const closeBtn = document.querySelector('.formaccept button');
 
+function openModal() {
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            overlay.classList.add('active');
+        });
+    });
+}
+
+function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+
+    setTimeout(() => {
+        if (!overlay.classList.contains('active')) {
+            overlay.style.display = 'none';
+        }
+    }, 500);
+}
+
+document.addEventListener('DOMContentLoaded' , () => {
+    const contactForm = document.querySelector('.question-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    openModal();
+                    this.reset();
+                } else {
+                    alert('Ошибка при отправке данных на сервер.');
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+        });
+    }
+if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (overlay) {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeModal();
+        });
+    }
+    const headers = document.querySelectorAll('.question-block-up');
     headers.forEach(header => {
         header.addEventListener('click', () => {
             const parent = header.closest('.question-block-item');
@@ -186,6 +248,5 @@
         });
     });
 });
-
 </script>
 </html>

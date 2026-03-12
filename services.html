@@ -308,7 +308,7 @@
         </div>
         <div class="overlay-formaccept">
             <div id="modal-success" class="formaccept">
-                <h2>Ваша заявка была успешна отправлена!</h2>
+                <h2>Ваша заявка была успешно отправлена!</h2>
                 <p>Мы свяжемся с вами в течение 1 часа в рабочее время</p>
                 <button>Понятно!</button>
             </div>
@@ -341,12 +341,37 @@
     </footer>
 </body>
 <script>
+const overlay = document.querySelector('.overlay-formaccept');
+const formAcceptWindow = document.querySelector('.formaccept');
+const closeBtn = document.querySelector('.formaccept button');
+
+function openModal() {
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            overlay.classList.add('active');
+        });
+    });
+}
+
+function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+
+    setTimeout(() => {
+        if (!overlay.classList.contains('active')) {
+            overlay.style.display = 'none';
+        }
+    }, 500);
+}
+
 document.querySelectorAll('form').forEach(form => {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const formData = new FormData(this);
-        const overlay = document.querySelector('.overlay-formaccept');
 
         try {
             const response = await fetch(this.action, {
@@ -355,20 +380,25 @@ document.querySelectorAll('form').forEach(form => {
             });
 
             if (response.ok) {
-                overlay.style.display = 'flex';
-                this.reset();
+                openModal();
+                this.reset(); 
             } else {
-                alert('Ошибка сервера. Попробуйте позже.');
+                alert('Ошибка сервера.');
             }
         } catch (error) {
-            console.error('Ошибка:', error);
+            console.error('Ошибка отправки:', error);
         }
     });
 });
 
-document.querySelector('.formaccept button').addEventListener('click', () => {
-    document.querySelector('.overlay-formaccept').style.display = 'none';
+closeBtn.addEventListener('click', closeModal);
+
+overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+        closeModal();
+    }
 });
+
 
 const customSelect = document.querySelector('#service-select');
 const trigger = customSelect.querySelector('.select-trigger');
