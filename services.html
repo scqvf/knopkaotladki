@@ -306,6 +306,13 @@
                  <button class="form-button" type="submit">Отправить</button>
             </form>
         </div>
+        <div class="overlay-formaccept">
+            <div id="modal-success" class="formaccept">
+                <h2>Ваша заявка была успешна отправлена!</h2>
+                <p>Мы свяжемся с вами в течение 1 часа в рабочее время</p>
+                <button>Понятно!</button>
+            </div>
+        </div>
     </main>
     <footer>
         <div class="footer-block top">
@@ -334,6 +341,35 @@
     </footer>
 </body>
 <script>
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const overlay = document.querySelector('.overlay-formaccept');
+
+        try {
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                overlay.style.display = 'flex';
+                this.reset();
+            } else {
+                alert('Ошибка сервера. Попробуйте позже.');
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+        }
+    });
+});
+
+document.querySelector('.formaccept button').addEventListener('click', () => {
+    document.querySelector('.overlay-formaccept').style.display = 'none';
+});
+
 const customSelect = document.querySelector('#service-select');
 const trigger = customSelect.querySelector('.select-trigger');
 const triggerText = trigger.querySelector('span');

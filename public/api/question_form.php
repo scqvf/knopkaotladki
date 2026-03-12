@@ -17,7 +17,9 @@ try {
         $sql = "INSERT INTO contact_questions (user_name, user_email, user_phone, user_message) VALUES (?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$name, $email, $phone, $message]);
-        echo "<h1>Заявка отправлена!</h1>";
+        // echo "<h1>Заявка отправлена!</h1>";
+        http_response_code(200); // Сообщаем браузеру, что всё ОК
+        exit;
     }
 } catch (PDOException $e) {
     die("Ошибка подключения: " . $e->getMessage());
