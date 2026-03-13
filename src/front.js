@@ -28,7 +28,6 @@ const circle = document.querySelector('.advantages-block-item');
 const texts = document.querySelectorAll('.advantages-block-item-text');
 const star = document.querySelector('.advantages-block-star');
 
-// 1. Единая функция для всех эффектов
 function applyEffect(x, y) {
     circle.style.transform = `rotateX(${(y * -25).toFixed(2)}deg) rotateY(${(x * 25).toFixed(2)}deg)`;
     circle.style.setProperty('--mouse-x', `${(x + 0.5) * 100}%`);
@@ -42,7 +41,6 @@ function applyEffect(x, y) {
     star.style.filter = `drop-shadow(${(x * -20).toFixed(1)}px ${(y * -20).toFixed(1)}px 10px rgba(0,0,0,0.3))`;
 }
 
-// 2. Логика для мышки (ПК)
 wrapper.addEventListener('mousemove', (e) => {
     const rect = wrapper.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -58,11 +56,9 @@ wrapper.addEventListener('mouseleave', () => {
     star.style.filter = 'none';
 });
 
-// 3. Логика для гироскопа (Мобилки)
 function handleOrientation(event) {
-    // Наклон влево-вправо (gamma) и вперед-назад (beta)
     let x = (event.gamma || 0) / 40; 
-    let y = ((event.beta || 0) - 45) / 40; // -45 градусов — поправка под наклон рук
+    let y = ((event.beta || 0) - 45) / 40;
 
     x = Math.max(-0.6, Math.min(0.6, x));
     y = Math.max(-0.6, Math.min(0.6, y));
@@ -70,9 +66,7 @@ function handleOrientation(event) {
     applyEffect(x, y);
 }
 
-// 4. Авто-запуск гироскопа (Android сразу, iOS по клику)
 if (typeof DeviceOrientationEvent !== 'undefined') {
-    // Если это iPhone (требует разрешение)
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
         document.addEventListener('click', () => {
             DeviceOrientationEvent.requestPermission()
@@ -83,7 +77,6 @@ if (typeof DeviceOrientationEvent !== 'undefined') {
                 });
         }, { once: true });
     } else {
-        // Если это Android (включаем СРАЗУ)
         window.addEventListener('deviceorientation', handleOrientation);
     }
 }

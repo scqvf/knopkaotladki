@@ -8,15 +8,73 @@
 </head>
 <body>
     <header>
-        <img src="img/logo.svg" alt="Логотип">
+        <a class="header-logo-mob" href="index.html"><img src="img/logo.svg" alt="Логотип"></a>
         <div class="header-nav-button">
-            <a href="index.html">ГЛавная</a>
             <a  href="about.html">О нас</a>
             <a  href="services.html">Услуги</a>
-            <a href="contacts.html">Контакты</a>
+            <a  href="contacts.html">Контакты</a>
             <a class="active" href="work.html">ПортфоЛио</a>
         </div>
         <a class="header-nav-request" href="services.html#application">Оставить заявку</a>
+
+        <div class="burger-menu">
+            <span></span>
+            <span style="background-color: #223148;"></span>
+            <span></span>
+        </div>
+        <div class="header-nav-button mobile-only">
+            <div class="mobile-header-back">
+                <a  href="about.html"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="48px" height="48px" fill-rule="nonzero"><g fill="#f0e7d5" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M24,4c-11.02771,0 -20,8.97229 -20,20c0,3.27532 0.86271,6.33485 2.26172,9.06445l-2.16797,7.76367c-0.50495,1.8034 1.27818,3.58449 3.08203,3.08008l7.76758,-2.16797c2.72769,1.39712 5.7836,2.25977 9.05664,2.25977c11.02771,0 20,-8.97229 20,-20c0,-11.02771 -8.97229,-20 -20,-20zM24,7c9.40629,0 17,7.59371 17,17c0,9.40629 -7.59371,17 -17,17c-3.00297,0 -5.80774,-0.78172 -8.25586,-2.14648c-0.34566,-0.19287 -0.75354,-0.24131 -1.13477,-0.13477l-7.38672,2.0625l2.0625,-7.38281c0.10655,-0.38122 0.05811,-0.7891 -0.13477,-1.13477c-1.36674,-2.4502 -2.15039,-5.25915 -2.15039,-8.26367c0,-9.40629 7.59371,-17 17,-17zM23.97656,12.97852c-0.82766,0.01293 -1.48843,0.69381 -1.47656,1.52148v12c-0.00765,0.54095 0.27656,1.04412 0.74381,1.31683c0.46725,0.27271 1.04514,0.27271 1.51238,0c0.46725,-0.27271 0.75146,-0.77588 0.74381,-1.31683v-12c0.00582,-0.40562 -0.15288,-0.7963 -0.43991,-1.08296c-0.28703,-0.28666 -0.67792,-0.44486 -1.08353,-0.43852zM24,31c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2z"></path></g></g></svg> О нас</a>
+                <a  href="services.html">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M33.5 11L37.4163 21.5837L48 25.5L37.4163 29.4163L33.5 40L29.5837 29.4163L19 25.5L29.5837 21.5837L33.5 11Z" stroke="#FDF4E2" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M11.5 2L14.0659 8.93414L21 11.5L14.0659 14.0659L11.5 21L8.93414 14.0659L2 11.5L8.93414 8.93414L11.5 2Z" stroke="#FDF4E2" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M16.5 31L18.5257 36.4743L24 38.5L18.5257 40.5257L16.5 46L14.4743 40.5257L9 38.5L14.4743 36.4743L16.5 31Z" stroke="#FDF4E2" stroke-width="2" stroke-linejoin="round"/>
+                    </svg>
+                    Услуги</a>
+                <a  href="contacts.html">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M31.1543 15.5C30.5 15 30.3568 14.7981 29.5 14.2642" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M32.8715 18C33.8728 19.7996 34.5 22.0946 34.5 25C34.5 35.8 25.8333 38.1667 21.5 38C17.1667 38 8.5 35.4 8.5 25C8.5 14.6 17.1667 12 21.5 12C23.0111 11.9419 25.0491 12.1918 27.0629 13" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="21.5" cy="22.5" r="3.5" stroke="#FDF4E2" stroke-width="2"/>
+                    <path d="M40.5 48.5V5.5" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <rect x="3" y="5" width="44" height="44" rx="6" stroke="#FDF4E2" stroke-width="2"/>
+                    <path d="M9 43V45" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M13.5005 43V45" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M22.5 43V45" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M17.9995 43V45" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M27.0005 43V45" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M31.4995 43V45" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M36 43V45" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M31 34C28.1667 30.9815 20.4 26.7556 12 34" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M40.5 38.5H46.5" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M40.5 27H46.5" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M40.5 16.5H46.5" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Контакты</a>
+                <a class="active" href="work.html">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="8" y="9" width="34" height="23" rx="1" stroke="#FDF4E2" stroke-width="2"/>
+                    <path d="M8 42.5H28" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M44.0244 4H24.4942H6.91702C3.79219 4 3.33648 5.62818 3.49923 6.44227V34.7726L6.05882 37.2149L3.49923 38.6803V45.5186C3.49923 47.8632 5.77776 48.1237 6.91702 47.9609H44.0244C47.1492 47.9609 47.6049 46.3327 47.4422 45.5186V38.6803L44.9425 37.2149L47.4422 34.7726V6.44227C47.4422 4.48845 45.1637 4 44.0244 4Z" stroke="#FDF4E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="9" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="12" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="15" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="18" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="21" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="24" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="27" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="30" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="33" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="36" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="39" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="42" cy="37" r="0.5" stroke="#FDF4E2"/>
+                    <circle cx="41.5" cy="42.5" r="1" fill="#FDF4E2" stroke="#FDF4E2"/>
+                    </svg>
+                    ПортфоЛио</a>
+                <a class="header-nav-request mobile-only" href="services.html#application">Оставить заявку</a>
+            </div>
+        </div>
     </header>
     <main class="portfolio">
         <h1 class="main-title">ПортфоЛио</h1>
@@ -130,7 +188,7 @@
             </div>
         </section>
     </main>
-     <footer>
+    <footer>
         <div class="footer-block top">
             <div class="footer-block-item left">
                 <p class="footer-title">О компании</p>
@@ -145,7 +203,7 @@
                 <a href="work.html">Портфолио</a>
             </div>
             <div class="footer-block-item right">
-                <p class="footer-title">Связаться с нами</p>
+                <p class="footer-title" style="text-align: right;">Связаться с нами</p>
                 <a href="mailto:knopkaotladki@mail.ru">knopkaotladki@mail.ru</a>
                 <a href="tel:89608933756">+7 960 893 37 56</a>
                 <p>г.Краснодар</p>
@@ -157,7 +215,24 @@
     </footer>
 </body>
 <script>
-    
+const burger = document.querySelector('.burger-menu');
+const mobileMenu = document.querySelector('.header-nav-button.mobile-only');
+
+burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('active');
+    document.body.classList.toggle('no-scroll');
+});
+
+const navLinks = document.querySelectorAll('.header-nav-button.mobile-only a');
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        burger.classList.remove('open');
+        mobileMenu.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+    });
+});
+
 const tabBtns = document.querySelectorAll('.tab-btn');
 
     function setActiveFirstCard() {

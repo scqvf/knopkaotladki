@@ -1388,6 +1388,7 @@ footer {
 .question-block-arrow {
     width: 40px;
     height: 40px;
+    flex: none;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1569,6 +1570,7 @@ footer {
     width: 100%; 
     height: 100%; 
     object-fit: cover;
+    border-radius: 20px;
     transition: transform 0.2s ease-out;
 }
 
@@ -2169,6 +2171,7 @@ main.portfolio {
 
     .mobile-header-back svg {
         width: 35px;
+        height: 35px;
     }
 
     .header-nav-request.mobile-only {
@@ -2342,5 +2345,209 @@ main.portfolio {
 
     .tech-circles {
         height: 590px;
+    }
+}
+
+
+@media (max-width: 1320px) {
+    .services-block {
+        max-width: 1000px;
+        padding: 40px 0px;
+    }
+
+    .package-card {
+        justify-content: space-around;
+    }
+
+    .stepswork-container {
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    main {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .services-block-item svg {
+        width: 370px;
+    }
+
+    .services-block-item, .package-card-item {
+        width: 370px;
+    }
+
+    .package-card-item svg{
+        width: 370px;
+    }
+
+    .package-card-features {
+        top: 160px;
+    }
+
+    .stepswork-block {
+        font-size: 18px;
+    }
+
+    .services-block {
+        width: 90%;
+    }
+}
+
+@media (max-width: 805px) {
+    .form-application {
+        width: 90%;
+        padding: 40px;
+    }
+
+    .form-item.height, .responsive-message {
+        width: 100%;
+    }
+
+    .warning-text, .text-info {
+        width: 90%;
+        text-align: center;
+    }
+
+    .services-block {
+        padding: 20px 0px;
+    }
+    
+    .mobile-header-back {
+        margin-top: 10px;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .services-block {
+        width: 100%;
+    }
+
+    .header-nav-request.mobile-only {
+        height: 50px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .contacts-block {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .question-block, .question-block-item {
+        width: 100%;
+    }
+}
+
+@media (max-width: 805px) {
+    .question-form-block {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .form-item {
+        width: 40%;
+    }
+
+    .form-item.height.contacts {
+        width: 100% !important;
+    }
+
+    .card-image {
+        width: 350px;
+        flex: none;
+    }
+
+    .card-content {
+        padding: 20px !important;
+    }
+
+    .card-info h2 {
+        font-size: 35px;
+    }
+
+    .card-info p {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 660px) {
+    .form-item {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1050px) {
+    .card-info h2 {
+        font-size: 45px;
+    }
+
+    .card-content {
+        padding: 40px;
+    }
+    
+    .portfolio-card {
+        width: 90%;
+    }
+
+    .portfolio-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 760px) {
+    .card-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .portfolio-card {
+        height: 700px;
+    }
+
+    .card-image {
+        width: 100%;
+        height: 65%;
+    }
+
+    .card-info {
+        width: 90%;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .card-content::before {
+        position: initial;
+    }
+}
+
+@media (max-width: 660px) {
+    .portfolio-tabs {
+        flex-wrap: wrap;
+    }
+
+    .card-info h2 {
+        font-size: 35px;
+    }
+
+    .portfolio-card {
+        height: fit-content;
+    }
+}
+
+@media (max-width: 500px) {
+    .card-info h2 {
+        font-size: 30px;
+    }
+
+    .portfolio-tabs {
+        width: 98%;
     }
 }
