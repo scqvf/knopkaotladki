@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
+import { gsap } from 'gsap';
 
 const canvas = document.querySelector("#experience-canvas");
 const sizes = {
@@ -11,6 +12,7 @@ const sizes = {
 }
 
 const raycasterObjects = [];
+let HoveredObject = null;
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -77,11 +79,40 @@ loader.load("/models/room.glb", (glb)=>{
 
           child.material = material;
 
-          if (child.name.includes('Pointer')) {
+          if (child.name.includes('chair_Anim_Second')) {
+            const initialRotationY = child.rotation.y;
+
+            gsap.to(child.rotation, {
+              y: initialRotationY - 0.2,
+              duration: 2,
+              repeat: -1,
+              yoyo: true,
+              ease: "sine.inOut"
+            });
+          }
+
+          if (child.name.includes('Pointer') || child.name.includes('Button') || child.name.includes('keyboard')) {
             raycasterObjects.push(child);
           }
-        }
-        
+
+          if (child.name.includes('Button') || child.name.includes('keyboard')) {
+              child.userData.inititialScale = new THREE.Vector3().copy(child.scale)
+              child.userData.inititialPosition = new THREE.Vector3().copy(child.position)
+              child.userData.inititialRotation = new THREE.Euler().copy(child.rotation)
+
+              if (child.name.includes('Button')) {
+              child.userData.idleTween = gsap.to(child.scale, {
+                  x: child.scale.x * 1.05,
+                  y: child.scale.y * 1.10,
+                  z: child.scale.z * 1.05,
+                  duration: 0.5 + Math.random(),
+                  repeat: -1,
+                  yoyo: true, 
+                  ease: "sine.inOut"
+                });
+              }
+            }
+          }
       });
     }
   });
@@ -109,6 +140,14 @@ renderer.toneMappingExposure = 1;
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
+
+controls.minDistance = 5; 
+controls.maxDistance = 27;
+controls.minPolarAngle = 0.5; 
+controls.maxPolarAngle = Math.PI / 2.2;
+controls.minAzimuthAngle = - Math.PI / 36;
+controls.maxAzimuthAngle = Math.PI / 2.3;
+
 controls.update();
 controls.target.set(
   
@@ -146,9 +185,7 @@ window.addEventListener("click", () => {
   const intersects = raycaster.intersectObjects(raycasterObjects);
 
   if (intersects.length > 0) {
-    const clickedName = intersects[0].object.name; // Берем имя первого объекта в который попали
-    
-    // Ищем ключ в нашем списке ссылок
+    const clickedName = intersects[0].object.name;
     Object.entries(pageLinks).forEach(([key, url]) => {
       if (clickedName.includes(key)) {
         window.location.href = url;
@@ -157,25 +194,88 @@ window.addEventListener("click", () => {
   }
 });
 
+function playHoverAnimation (object, isHovering) {
+  const isKeyboard = object.name.includes('keyboard');
+
+  if(isHovering) {
+    if (object.userData.idleTween) object.userData.idleTween.pause();
+
+    if (isKeyboard) {
+      gsap.to(object.scale, {
+        y: object.userData.inititialScale.y * 1.5,
+        duration: 0.3,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    } else {
+      gsap.to(object.scale, {
+        x: object.userData.inititialScale.x * 1.1,
+        y: object.userData.inititialScale.y * 1.1,
+        z: object.userData.inititialScale.z * 1.1,
+        duration: 0.4,
+        overwrite: "auto"
+      });
+      gsap.to(object.rotation, {
+        x: object.userData.inititialRotation.x + Math.PI / 50,
+        duration: 0.3,
+        overwrite: "auto"
+      });
+    }
+  } else {
+    gsap.to(object.scale, {
+      x: object.userData.inititialScale.x,
+      y: object.userData.inititialScale.y,
+      z: object.userData.inititialScale.z,
+      duration: 0.3, 
+      overwrite: "auto",
+      onComplete: () => {
+        if (object.userData.idleTween) object.userData.idleTween.play();
+      }
+    });
+    gsap.to(object.rotation, {
+      x: object.userData.inititialRotation.x,
+      y: object.userData.inititialRotation.y,
+      z: object.userData.inititialRotation.z,
+      duration: 0.3, 
+      overwrite: "auto"
+    });
+  }
+}
+
 const render = () => {
   controls.update();
-
-  // Raycaster
   raycaster.setFromCamera(pointer, camera);
 
   const intersects = raycaster.intersectObjects(raycasterObjects);
-  for (let i = 0; i <intersects.length; i++) {
-  }
 
-  if(intersects.length>0){
-    document.body.style.cursor = "pointer";
+  if (intersects.length > 0) {
+    const currentIntersect = intersects[0].object;
+    
+    const isButton = currentIntersect.name.includes("Button");
+    const isKeyboard = currentIntersect.name.includes("keyboard");
+    if (isButton) {
+      document.body.style.cursor = "pointer";
+    } else {
+      document.body.style.cursor = "default";
+    }
+
+    if ((isButton || isKeyboard) && currentIntersect !== HoveredObject) {
+      if (HoveredObject) playHoverAnimation(HoveredObject, false);
+      
+      playHoverAnimation(currentIntersect, true);
+      HoveredObject = currentIntersect;
+    }
   } else {
     document.body.style.cursor = "default";
+    if (HoveredObject) {
+      playHoverAnimation(HoveredObject, false);
+      HoveredObject = null;
+    }
   }
 
-  renderer.render( scene, camera );
-
+  renderer.render(scene, camera);
   window.requestAnimationFrame(render);
 };
+
 
 render();
