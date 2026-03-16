@@ -147,6 +147,15 @@ controls.minPolarAngle = 0.5;
 controls.maxPolarAngle = Math.PI / 2.2;
 controls.minAzimuthAngle = - Math.PI / 36;
 controls.maxAzimuthAngle = Math.PI / 2.3;
+controls.enablePan = true;
+
+if (window.innerWidth < 768) {
+  camera.position.set(29.56, 14.01, 31.37);
+  controls.target.set(-0.08, 3.31, -0.74);
+} else {
+  camera.position.set(17.49, 9.10, 17.85);
+  controls.target.set(0.46, 1.97, -0.83);
+}
 
 controls.update();
 controls.target.set(
@@ -243,6 +252,13 @@ function playHoverAnimation (object, isHovering) {
 }
 
 const render = () => {
+  const minPan = new THREE.Vector3(-2, 2, -7); // Лево, Низ, Глубина
+  const maxPan = new THREE.Vector3(5, 6, 2);  // Право, Верх, Перед
+
+  controls.target.x = Math.max(minPan.x, Math.min(maxPan.x, controls.target.x));
+  controls.target.y = Math.max(minPan.y, Math.min(maxPan.y, controls.target.y));
+  controls.target.z = Math.max(minPan.z, Math.min(maxPan.z, controls.target.z));
+
   controls.update();
   raycaster.setFromCamera(pointer, camera);
 
