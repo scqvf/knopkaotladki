@@ -194,6 +194,12 @@ controls.minAzimuthAngle = - Math.PI / 36;
 controls.maxAzimuthAngle = Math.PI / 2.3;
 controls.enablePan = true;
 
+if (window.innerWidth < 768) {
+  controls.maxDistance = 60; // Увеличиваем для телефонов, чтобы можно было сильно отдалить
+} else {
+  controls.maxDistance = 27; // Оставляем как было для компьютеров
+}
+
 const debugDiv = document.createElement('div');
 debugDiv.style.position = 'fixed';
 debugDiv.style.top = '10px';
