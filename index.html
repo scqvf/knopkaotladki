@@ -2,13 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Главная страница</title>
   </head>
   <body>
     <div id="app"></div>
-      
+    <div class="loading-screen">
+      <button class="loading-screen-button">
+        загрузка<span class="dots"></span>
+      </button>
+      <p class="desktop-instructions instructions">Левая кнопка — обзор, правая — сдвиг, колесико — масштаб</p>
+      <p class="mobile-instructions instructions">Управляйте одним или двумя пальцами</p>
+    </div>
     <div id="experience">
       <canvas id="experience-canvas" class="experience-canvas"></canvas>
     </div>

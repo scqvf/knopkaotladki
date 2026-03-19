@@ -12,19 +12,69 @@ const sizes = {
 }
 
 const raycasterObjects = [];
+const buttonsToAnimate = [];
 let HoveredObject = null;
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 
-// Loaders
-const textureLoader = new THREE.TextureLoader();
+const manager = new THREE.LoadingManager();
+const loadingScreen = document.querySelector(".loading-screen");
+const loadingScreenButton = document.querySelector(".loading-screen-button");
+const Instructions = document.querySelector(".instructions");
 
-// Model Loader
+manager.onLoad = () => {
+  setTimeout(() => {
+    loadingScreenButton.classList.add("ready"); 
+    loadingScreenButton.textContent = "ВОЙтИ";
+    loadingScreenButton.style.cursor = "pointer";
+
+    loadingScreenButton.onclick = () => {
+      playReveal();
+    };
+  }, 2500); 
+};
+
+function playReveal() {
+  const tl = gsap.timeline();
+
+  tl.to(loadingScreen, {
+    scale: 0.5,
+    duration: 0.8,
+    ease: "back.inOut(1.4)",
+    onStart: () => {
+      loadingScreenButton.textContent = "КноПка отЛаДки";
+      loadingScreenButton.style.pointerEvents = "none";
+      loadingScreen.style.background = "#223148";
+      gsap.to(Instructions, { 
+        opacity: 0,
+      });
+    }
+  })
+  
+  .to(loadingScreen, {
+    duration: 0.3,
+    ease: "power2.inOut"
+  }, "-=0.2")
+
+  .to(loadingScreen, {
+    scale: 30,
+    opacity: 0,
+    duration: 0.8,
+    ease: "expo.in",
+    onComplete: () => {
+      startSceneAnimation();
+      loadingScreen.remove();
+    }
+  }, "+=0.3");
+}
+
+const textureLoader = new THREE.TextureLoader(manager);
+
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath("/draco/");
 
-const loader = new GLTFLoader();
+const loader = new GLTFLoader(manager);
 loader.setDRACOLoader( dracoLoader );
 
 const textureMap = {
@@ -94,29 +144,24 @@ loader.load("/models/room.glb", (glb)=>{
           if (child.name.includes('Pointer') || child.name.includes('Button') || child.name.includes('keyboard')) {
             raycasterObjects.push(child);
           }
-
-          if (child.name.includes('Button') || child.name.includes('keyboard')) {
-              child.userData.inititialScale = new THREE.Vector3().copy(child.scale)
-              child.userData.inititialPosition = new THREE.Vector3().copy(child.position)
-              child.userData.inititialRotation = new THREE.Euler().copy(child.rotation)
-
-              if (child.name.includes('Button')) {
-              child.userData.idleTween = gsap.to(child.scale, {
-                  x: child.scale.x * 1.05,
-                  y: child.scale.y * 1.10,
-                  z: child.scale.z * 1.05,
-                  duration: 0.5 + Math.random(),
-                  repeat: -1,
-                  yoyo: true, 
-                  ease: "sine.inOut"
-                });
-              }
-            }
+          if (child.name.includes('Button')) {
+            child.userData.inititialScale = new THREE.Vector3().copy(child.scale);
+            child.userData.inititialPosition = new THREE.Vector3().copy(child.position);
+            child.userData.inititialRotation = new THREE.Euler().copy(child.rotation);
+            child.scale.set(0, 0, 0);
+            buttonsToAnimate.push(child);
           }
+
+          if (child.name.includes('keyboard')) {
+            child.userData.inititialScale = new THREE.Vector3().copy(child.scale);
+            child.userData.inititialPosition = new THREE.Vector3().copy(child.position);
+            child.userData.inititialRotation = new THREE.Euler().copy(child.rotation);
+          }
+        }
       });
     }
   });
-  scene.add(glb.scene)
+  scene.add(glb.scene);
 });
 
 const scene = new THREE.Scene();
@@ -134,8 +179,8 @@ camera.position.set(
 const renderer = new THREE.WebGLRenderer({canvas:canvas, antialias: true});
 renderer.setSize( sizes.width, sizes.height );
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-renderer.toneMapping = THREE.ACESFilmicToneMapping; // Делает картинку более киношной и мягкой
-renderer.toneMappingExposure = 1;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
 
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.enableDamping = true;
@@ -148,6 +193,29 @@ controls.maxPolarAngle = Math.PI / 2.2;
 controls.minAzimuthAngle = - Math.PI / 36;
 controls.maxAzimuthAngle = Math.PI / 2.3;
 controls.enablePan = true;
+
+const debugDiv = document.createElement('div');
+debugDiv.style.position = 'fixed';
+debugDiv.style.top = '10px';
+debugDiv.style.left = '10px';
+debugDiv.style.padding = '10px';
+debugDiv.style.background = 'rgba(0,0,0,0.8)';
+debugDiv.style.color = 'white';
+debugDiv.style.fontSize = '12px';
+debugDiv.style.zIndex = '9999';
+debugDiv.style.pointerEvents = 'none'; // Чтобы не мешала крутить камеру
+debugDiv.id = 'camera-debug';
+document.body.appendChild(debugDiv);
+
+// Обновляем текст каждую секунду
+setInterval(() => {
+  debugDiv.innerHTML = `
+    <b>Camera Pos:</b><br>
+    ${camera.position.x.toFixed(2)}, ${camera.position.y.toFixed(2)}, ${camera.position.z.toFixed(2)}<br><br>
+    <b>Target Pos:</b><br>
+    ${controls.target.x.toFixed(2)}, ${controls.target.y.toFixed(2)}, ${controls.target.z.toFixed(2)}
+  `;
+}, 100);
 
 if (window.innerWidth < 768) {
   camera.position.set(29.56, 14.01, 31.37);
@@ -168,16 +236,13 @@ controls.target.set(
 )
 
 
-// Event Listeners
 window.addEventListener("resize", ()=> {
   sizes.width = window.innerWidth;
   sizes.height = window.innerHeight;
 
-  // Update camera
   camera.aspect = sizes.width / sizes.height;
   camera.updateProjectionMatrix();
 
-  // Update renderer
   renderer.setSize( sizes.width, sizes.height );
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
@@ -202,6 +267,23 @@ window.addEventListener("click", () => {
     });
   }
 });
+
+function startSceneAnimation() {
+  buttonsToAnimate.forEach((child) => {
+    const finalScale = child.userData.inititialScale;
+    gsap.to(child.scale, {
+      x: finalScale.x, y: finalScale.y, z: finalScale.z,
+      duration: 1, ease: "back.out(1.7)",
+      delay: Math.random() * 0.5,
+      onComplete: () => {
+        child.userData.idleTween = gsap.to(child.scale, {
+          x: finalScale.x * 1.05, y: finalScale.y * 1.1, z: finalScale.z * 1.05,
+          duration: 0.8 + Math.random(), repeat: -1, yoyo: true, ease: "sine.inOut"
+        });
+      }
+    });
+  });
+}
 
 function playHoverAnimation (object, isHovering) {
   const isKeyboard = object.name.includes('keyboard');
