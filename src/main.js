@@ -43,6 +43,8 @@ function playReveal() {
     duration: 0.8,
     ease: "back.inOut(1.4)",
     onStart: () => {
+      loadingScreenButton.classList.remove("ready");
+      loadingScreenButton.classList.add("final");
       loadingScreenButton.textContent = "КноПка отЛаДки";
       loadingScreenButton.style.pointerEvents = "none";
       loadingScreen.style.background = "#223148";
@@ -190,7 +192,7 @@ controls.maxAzimuthAngle = Math.PI / 2.3;
 controls.enablePan = true;
 
 if (window.innerWidth < 768) {
-  controls.maxDistance = 50; 
+  controls.maxDistance = 45; 
   camera.position.set(27.33, 13.31, 29.61);
   controls.target.set(-1.27, 3.63, -1.44);
 } else {

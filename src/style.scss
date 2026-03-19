@@ -59,9 +59,25 @@
   font-size: 42px;
   min-width: 140px;
   text-align: center;
+  transition: all 0.4s ease;
   .dots::after {
     content: '';
     animation: dots-animation 1.5s infinite step-start;
+  }
+
+  &.ready {
+    background: #F0E7D5;
+    color: #273148;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+   &.final {
+    background: initial;
+    color: #F0E7D5;
   }
 }
 
@@ -101,5 +117,13 @@
   }
   .mobile-instructions {
     display: block !important;
+  }
+
+  .loading-screen-button {
+    font-size: 28px;
+  }
+
+  .instructions {
+    font-size: 18px;
   }
 }
