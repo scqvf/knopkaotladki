@@ -171,14 +171,10 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-camera.position.set(
-19.165596109554876,
-10.366829967866206,
-11.755602978410923)
 
 const renderer = new THREE.WebGLRenderer({canvas:canvas, antialias: true});
 renderer.setSize( sizes.width, sizes.height );
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.2;
 
@@ -187,7 +183,6 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 
 controls.minDistance = 5; 
-controls.maxDistance = 27;
 controls.minPolarAngle = 0.5; 
 controls.maxPolarAngle = Math.PI / 2.2;
 controls.minAzimuthAngle = - Math.PI / 36;
@@ -195,52 +190,16 @@ controls.maxAzimuthAngle = Math.PI / 2.3;
 controls.enablePan = true;
 
 if (window.innerWidth < 768) {
-  controls.maxDistance = 60; // Увеличиваем для телефонов, чтобы можно было сильно отдалить
+  controls.maxDistance = 50; 
+  camera.position.set(27.33, 13.31, 29.61);
+  controls.target.set(-1.27, 3.63, -1.44);
 } else {
-  controls.maxDistance = 27; // Оставляем как было для компьютеров
-}
-
-const debugDiv = document.createElement('div');
-debugDiv.style.position = 'fixed';
-debugDiv.style.top = '10px';
-debugDiv.style.left = '10px';
-debugDiv.style.padding = '10px';
-debugDiv.style.background = 'rgba(0,0,0,0.8)';
-debugDiv.style.color = 'white';
-debugDiv.style.fontSize = '12px';
-debugDiv.style.zIndex = '9999';
-debugDiv.style.pointerEvents = 'none'; // Чтобы не мешала крутить камеру
-debugDiv.id = 'camera-debug';
-document.body.appendChild(debugDiv);
-
-// Обновляем текст каждую секунду
-setInterval(() => {
-  debugDiv.innerHTML = `
-    <b>Camera Pos:</b><br>
-    ${camera.position.x.toFixed(2)}, ${camera.position.y.toFixed(2)}, ${camera.position.z.toFixed(2)}<br><br>
-    <b>Target Pos:</b><br>
-    ${controls.target.x.toFixed(2)}, ${controls.target.y.toFixed(2)}, ${controls.target.z.toFixed(2)}
-  `;
-}, 100);
-
-if (window.innerWidth < 768) {
-  camera.position.set(29.56, 14.01, 31.37);
-  controls.target.set(-0.08, 3.31, -0.74);
-} else {
-  camera.position.set(17.49, 9.10, 17.85);
-  controls.target.set(0.46, 1.97, -0.83);
+  controls.maxDistance = 27; 
+  camera.position.set(17.20, 11.54, 15.67);
+  controls.target.set(-0.59, 3.95, -2.15);
 }
 
 controls.update();
-controls.target.set(
-  
--0.5916869120073701,
-
-3.9581975581167312,
-
--2.1551166648476023
-)
-
 
 window.addEventListener("resize", ()=> {
   sizes.width = window.innerWidth;
@@ -250,8 +209,8 @@ window.addEventListener("resize", ()=> {
   camera.updateProjectionMatrix();
 
   renderer.setSize( sizes.width, sizes.height );
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
 
 const pageLinks = {
   'My_Work': '/work.html',
