@@ -24,6 +24,8 @@ const loadingScreenButton = document.querySelector(".loading-screen-button");
 const Instructions = document.querySelector(".instructions");
 
 manager.onLoad = () => {
+  Object.values(loadedTextures.day).forEach(tex => renderer.initTexture(tex));
+  Object.values(loadedTextures.night).forEach(tex => renderer.initTexture(tex));
   setTimeout(() => {
     loadingScreenButton.classList.add("ready"); 
     loadingScreenButton.textContent = "ВОЙтИ";
@@ -32,7 +34,7 @@ manager.onLoad = () => {
     loadingScreenButton.onclick = () => {
       playReveal();
     };
-  }, 2500); 
+  }, 2000); 
 };
 
 function playReveal() {
@@ -82,15 +84,15 @@ loader.setDRACOLoader( dracoLoader );
 const textureMap = {
   First: {
     day: "/textures/TextureSetFirst.webp",
-    // night: "/textures/room/NightTextureSetFirst.webp",
+    night: "/textures/NightTextureSetFirst.webp",
   },
   Second: {
     day: "/textures/TextureSetSecond.webp",
-    // night: "/textures/room/NightTextureSetSecond.webp",
+    night: "/textures/NightTextureSetSecond.webp",
   },
   Third: {
     day: "/textures/TextureSetThird.png",
-    // night: "/textures/room/NightTextureSetThird.webp",
+    night: "/textures/NightTextureSetThird.png",
   },
 }
 
@@ -107,6 +109,7 @@ Object.entries(textureMap).forEach(([key, paths])=>{
 
   const nightTexture = textureLoader.load(paths.night);
   nightTexture.flipY = false
+  nightTexture.colorSpace = THREE.SRGBColorSpace;
   loadedTextures.night[key] = nightTexture;
 })
 
@@ -121,7 +124,6 @@ loader.load("/models/room.glb", (glb)=>{
       Object.keys(textureMap).forEach(key=>{
         if(child.name.includes(key)){
           const isTransparent = child.name.includes('Transparency');
-
           const material = new THREE.MeshBasicMaterial({
             map: loadedTextures.day[key],
             transparent: isTransparent,
@@ -130,6 +132,10 @@ loader.load("/models/room.glb", (glb)=>{
           });
 
           child.material = material;
+
+          child.userData.dayTex = loadedTextures.day[key];
+          child.userData.nightTex = loadedTextures.night[key];
+          child.userData.meshKey = key;
 
           if (child.name.includes('chair_Anim_Second')) {
             const initialRotationY = child.rotation.y;
@@ -299,6 +305,46 @@ function playHoverAnimation (object, isHovering) {
     });
   }
 }
+
+let isNight = false;
+
+function toggleTheme() {
+  isNight = !isNight;
+
+  const themeBtn = document.getElementById('theme-switch');
+  if (themeBtn) {
+    themeBtn.classList.toggle('is-night', isNight);
+  }
+
+  gsap.to(renderer, {
+    toneMappingExposure: isNight ? 0.7 : 1.2,
+    duration: 1,
+    ease: "power2.inOut"
+  });
+
+  scene.traverse((child) => {
+    if (child.isMesh && child.userData.dayTex) {
+      gsap.to(child.material, {
+        duration: 0.4,
+        ease: "power2.in",
+        onComplete: () => {
+          child.material.map = isNight ? child.userData.nightTex : child.userData.dayTex;
+          gsap.to(child.material, {
+            duration: 0.4,
+            ease: "power2.out"
+          });
+        }
+      });
+    }
+  });
+}
+
+
+const themeBtn = document.getElementById('theme-switch');
+if (themeBtn) {
+  themeBtn.addEventListener('click', toggleTheme);
+}
+
 
 const render = () => {
   const minPan = new THREE.Vector3(-2, 2, -7); // Лево, Низ, Глубина

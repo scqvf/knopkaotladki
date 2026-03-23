@@ -126,4 +126,53 @@
   .instructions {
     font-size: 18px;
   }
+
+
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 30px;
+  right: 40px;
+  z-index: 100;
+  width: 80px;
+  height: 80px;
+  background: #F0E7D5;
+  border: 5px solid #273148;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#theme-switch svg {
+    position: absolute;
+    transition: opacity 0.5s ease;
+}
+
+#theme-switch .dark-theme { opacity: 0; }
+#theme-switch .light-theme { opacity: 1; }
+
+#theme-switch.is-night .dark-theme { opacity: 1; }
+#theme-switch.is-night .light-theme { opacity: 0; }
+
+.light-theme, .dark-theme {
+  width: 50px;
+  height: 50px;
+}
+
+@media (max-width: 768px) {  
+  .theme-toggle {
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .light-theme, .dark-theme {
+    width: 40px;
+    height: 40px;
+  }
 }
