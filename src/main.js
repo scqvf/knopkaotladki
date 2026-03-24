@@ -34,7 +34,7 @@ manager.onLoad = () => {
     loadingScreenButton.onclick = () => {
       playReveal();
     };
-  }, 2000); 
+  }, 1); 
 };
 
 function playReveal() {
@@ -119,16 +119,18 @@ window.addEventListener("mousemove", (e)=>{
 })
 
 loader.load("/models/room.glb", (glb)=>{
+  let internalCount = 0;
   glb.scene.traverse(child=>{
     if(child.isMesh){
       Object.keys(textureMap).forEach(key=>{
         if(child.name.includes(key)){
           const isTransparent = child.name.includes('Transparency');
-          const material = new THREE.MeshBasicMaterial({
+          const material = new THREE.MeshPhongMaterial({
             map: loadedTextures.day[key],
             transparent: isTransparent,
             opacity: isTransparent ? 1 : 1,
             side: THREE.DoubleSide,
+            shininess: 10,
           });
 
           child.material = material;
@@ -153,11 +155,30 @@ loader.load("/models/room.glb", (glb)=>{
             raycasterObjects.push(child);
           }
           if (child.name.includes('Button')) {
+            if (internalCount < buttonLights.length) {
+              const currentLight = buttonLights[internalCount];
+              child.updateWorldMatrix(true, true);
+
+              const worldPos = new THREE.Vector3();
+              child.getWorldPosition(worldPos);
+              currentLight.position.copy(worldPos);
+
+              const offset = new THREE.Vector3(0, 0.5, 0.3); 
+              
+              offset.applyQuaternion(child.quaternion);
+
+              currentLight.position.add(offset);
+
+              internalCount++;
+            }
             child.userData.inititialScale = new THREE.Vector3().copy(child.scale);
             child.userData.inititialPosition = new THREE.Vector3().copy(child.position);
             child.userData.inititialRotation = new THREE.Euler().copy(child.rotation);
             child.scale.set(0, 0, 0);
+            child.userData.buttonMat = child.material;
+            child.material.color.setRGB(1, 1, 1); 
             buttonsToAnimate.push(child);
+            
           }
 
           if (child.name.includes('keyboard')) {
@@ -179,6 +200,23 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
+
+const buttonLights = [];
+const buttonColors = [0xffffff, 0xffffff, 0xffffff, 0xffffff];
+for (let i = 0; i < 4; i++) {
+  const bLight = new THREE.PointLight(buttonColors[i], 0, 2);
+  scene.add(bLight);
+  buttonLights.push(bLight);
+}
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 2.5); 
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xffe9a8, 0, 100);
+pointLight.position.set(2, 8, 5);
+scene.add(pointLight);
+
+// визуальный помощник scene.add(new THREE.PointLightHelper(pointLight, 0.5));
 
 const renderer = new THREE.WebGLRenderer({canvas:canvas, antialias: true});
 renderer.setSize( sizes.width, sizes.height );
@@ -305,40 +343,56 @@ function playHoverAnimation (object, isHovering) {
     });
   }
 }
-
 let isNight = false;
 
 function toggleTheme() {
   isNight = !isNight;
 
   const themeBtn = document.getElementById('theme-switch');
-  if (themeBtn) {
-    themeBtn.classList.toggle('is-night', isNight);
-  }
+  if (themeBtn) themeBtn.classList.toggle('is-night', isNight);
 
-  gsap.to(renderer, {
-    toneMappingExposure: isNight ? 0.7 : 1.2,
-    duration: 1,
-    ease: "power2.inOut"
-  });
+  const tl = gsap.timeline();
 
-  scene.traverse((child) => {
-    if (child.isMesh && child.userData.dayTex) {
-      gsap.to(child.material, {
-        duration: 0.4,
-        ease: "power2.in",
-        onComplete: () => {
+  tl.to(renderer, {
+    toneMappingExposure: isNight ? 0.4 : 1.6,
+    duration: 0.5,
+    ease: "power2.in",
+    onComplete: () => {
+      scene.traverse((child) => {
+        if (child.isMesh && child.userData.dayTex) {
           child.material.map = isNight ? child.userData.nightTex : child.userData.dayTex;
-          gsap.to(child.material, {
-            duration: 0.4,
-            ease: "power2.out"
-          });
+          child.material.needsUpdate = true;
         }
       });
     }
+  })
+
+  .to(renderer, {
+    toneMappingExposure: isNight ? 0.7 : 1,
+    duration: 0.8,
+    ease: "power2.out"
+  });
+
+  buttonLights.forEach((light) => {
+    gsap.to(light, {
+      intensity: isNight ? 8 : 0,
+      duration: 1.5,
+      ease: "sine.inOut"
+    });
+  });
+
+  gsap.to(ambientLight, {
+    intensity: isNight ? 3 : 2.5,
+    duration: 1.5,
+    ease: "sine.inOut"
+  });
+
+  gsap.to(pointLight, {
+    intensity: isNight ? 120 : 0,
+    duration: 2,
+    ease: "power1.inOut"
   });
 }
-
 
 const themeBtn = document.getElementById('theme-switch');
 if (themeBtn) {
