@@ -34,7 +34,7 @@ manager.onLoad = () => {
     loadingScreenButton.onclick = () => {
       playReveal();
     };
-  }, 1); 
+  }, 2000); 
 };
 
 function playReveal() {
