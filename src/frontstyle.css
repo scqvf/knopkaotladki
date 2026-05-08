@@ -1212,8 +1212,9 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #E3E6EC70, #27314880);
+    background: linear-gradient(135deg, #93939370, #001138a3);
     box-shadow: 10px 20px 40px rgba(0, 0, 0, 0.507);
+    border: 2px dashed var(--maintext);
     top: -5%;
     opacity: 0;
     overflow: hidden;
@@ -1298,6 +1299,35 @@ footer {
     color: #fff;
     animation: pulseHint 2s infinite;
     pointer-events: none;
+}
+
+.desktop-hint {
+    display: none;
+    position: absolute;
+    top: 60px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    animation: pulseHint 2s infinite;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+@media (min-width: 769px) {
+    .desktop-hint {
+        display: block;
+    }
+}
+
+.tech-circle:hover .desktop-hint {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-hint {
+        display: none !important;
+    }
 }
 
 @keyframes pulseHint {

@@ -17,7 +17,6 @@ try {
         $sql = "INSERT INTO service_requests (user_name, user_email, service_type, user_message) VALUES (?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$name, $email, $service, $message]);
-        // echo "<h1>Заявка отправлена!</h1>";
         http_response_code(200);
         exit;
     }
