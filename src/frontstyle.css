@@ -1271,6 +1271,8 @@ footer {
 .circle-inner h3 {
     transition: 0.4s ease;
     font-size: 20px;
+    position: absolute;
+    top: 50px;
 }
 
 .tech-content {
@@ -1278,6 +1280,8 @@ footer {
     opacity: 0;
     transform: translateY(10px);
     transition: 0.4s ease;
+    position: absolute;
+    top: 65px;
 }
 
 .tech-circle:hover .tech-content {
@@ -1312,6 +1316,20 @@ footer {
     animation: pulseHint 2s infinite;
     pointer-events: none;
     opacity: 0.7;
+}
+
+@media (max-width: 660px) {
+    .circle-inner {
+        justify-content: start;
+    }
+
+    .mobile-hint {
+        top: 60px;
+    }
+
+    .tech-content, .circle-inner h3 {
+        position: initial;
+    }
 }
 
 @media (min-width: 769px) {
