@@ -51,12 +51,12 @@ body {
     color: var(--maintext);
     font-family: "Dudka";
     background-color: var(--bodycolor);
-    cursor: url("../img/cursor.png"), default;
+    /* cursor: url("../img/cursor.png"), default; */
 }
 
-a, button {
+/* a, button {
     cursor: url('../img/hand.png'), pointer;
-}
+} */
 
 
 header {
